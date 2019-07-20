@@ -41,5 +41,3 @@ ExpressJS: This is the web application framework for Node.js Visit [here](https:
 
 
 [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/) for framework
-
-**Note: Project is still under development**
