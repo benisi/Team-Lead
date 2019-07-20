@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./server/database/config.js && node server.js",
     "start:dev": "nodemon ./sever.js",
-    "test": "node ./server/database/test-db-config.js"
+    "test": "node ./server/database/test-db-config.js && mocha ./server/tests/* --exit"
   },
   "author": "Isidahomen Oseikweme",
   "license": "MIT",
@@ -14,7 +14,12 @@
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "make-runnable": "^1.3.6",
-    "nodemon": "^1.19.1",
     "pg": "^7.11.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^6.2.0",
+    "nodemon": "^1.19.1"
   }
 }
