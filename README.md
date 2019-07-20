@@ -8,7 +8,7 @@ Team Lead is a project that randomly select members of a team to lead the team e
 
 [Hosted API on Heroku]()<br/>
 
-## Installation
+## Installation 
 
 1.  Clone the repository by running the code below:
 ```shell
@@ -40,6 +40,6 @@ NodeJS: An open-source, cross-platform JavaScript run-time environment which all
 ExpressJS: This is the web application framework for Node.js Visit [here](https://expressjs.com) for details.
 
 
-[Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/) for testing
+[Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/) for framework
 
 **Note: Project is still under development**
