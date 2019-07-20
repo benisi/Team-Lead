@@ -1,5 +1,5 @@
 # Team Lead
-
+[![Build Status](https://travis-ci.com/benisi/Team-Lead.svg?branch=develop)](https://travis-ci.org/benisi/Team-Lead)
 ## Description
 
 Team Lead is a project that randomly select members of a team to lead the team every week without repeatition per cycle
