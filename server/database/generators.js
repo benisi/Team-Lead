@@ -93,4 +93,5 @@ export default {
     getCandidatesForQa,
     updateTimesTl,
     updateTimesQa,
+    getTeamName,
 }
