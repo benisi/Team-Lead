@@ -30,12 +30,21 @@ const createMetasTableQuery = `CREATE TABLE IF NOT EXISTS metas(
     FOREIGN KEY ("teamId") REFERENCES teams(id) ON DELETE CASCADE
     )`;
 
+const createTeamQuery = `INSERT INTO teams(name) VALUES($1)`;
+
+const createMembersQuery = `INSERT INTO members(name, "teamId") VALUES($1, $2)`;
+
 const createTables = async () => {
   try {
     await pool.query(createTeamsTableQuery);
     await pool.query(createMembersTableQuery);
     await pool.query(createMetasTableQuery);
     await pool.query(createResultsTableQuery);
+    await pool.query(createTeamQuery, ['dahlia']);
+    await pool.query(createMembersQuery, ['Ukhu', 1]);
+    await pool.query(createMembersQuery, ['Rita', 1]);
+    await pool.query(createMembersQuery, ['Ovie', 1]);
+    await pool.query(createMembersQuery, ['Bela', 1]);
   } catch (e) {
     throw e;
   }

@@ -9,10 +9,6 @@ const dropResultsTableQuery = `DROP TABLE IF EXISTS results;`;
 
 const dropMetasTableQuery = `DROP TABLE IF EXISTS metas;`;
 
-const createTeamQuery = `INSERT INTO teams(name) VALUES($1)`;
-
-const createMembersQuery = `INSERT INTO members(name, "teamId") VALUES($1, $2)`;
-
 const configTestTable = async () => {
   try {
     await pool.query(dropTeamsTableQuery);
@@ -21,11 +17,6 @@ const configTestTable = async () => {
     await pool.query(dropResultsTableQuery);
     console.log('table dropped');
     createTables();
-    await pool.query(createTeamQuery, ['dahlia']);
-    await pool.query(createMembersQuery, ['Ukhu', 1]);
-    await pool.query(createMembersQuery, ['Rita', 1]);
-    await pool.query(createMembersQuery, ['Ovie', 1]);
-    await pool.query(createMembersQuery, ['Bela', 1]);
   } catch (e) {
     throw e;
   }
