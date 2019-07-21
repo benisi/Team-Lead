@@ -1,4 +1,4 @@
-const pool = require('./pool');
+import pool from './pool';
 
 const createTeamsTableQuery = `DROP TABLE IF EXISTS team CASCADE;
 CREATE TABLE IF NOT EXISTS teams(
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS members(
     "timesTl" INTEGER NOT NULL DEFAULT 0,
     "timesQa" INTEGER NOT NULL DEFAULT 0,
     FOREIGN KEY ("teamId") REFERENCES teams(id) ON DELETE CASCADE
-)`; 
+)`;
 
 const createResultsTableQuery = `DROP TABLE IF EXISTS results CASCADE;
 CREATE TABLE IF NOT EXISTS results(
@@ -31,17 +31,14 @@ CREATE TABLE IF NOT EXISTS metas(
     name CHARACTER VARYING(50) NOT NULL)`;
 
 const createTables = async () => {
-    try{
-        await pool.query(createTeamsTableQuery);
-        await pool.query(createMembersTableQuery);
-        await pool.query(createMetasTableQuery);
-        await pool.query(createResultsTableQuery);
-    } catch (e){
-        throw(e);
-    }
-    
-}
+  try {
+    await pool.query(createTeamsTableQuery);
+    await pool.query(createMembersTableQuery);
+    await pool.query(createMetasTableQuery);
+    await pool.query(createResultsTableQuery);
+  } catch (e) {
+    throw e;
+  }
+};
 
-module.exports = createTables;
-
-require('make-runnable');
+export default createTables;
