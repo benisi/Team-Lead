@@ -1,5 +1,5 @@
-import pool from './pool';
-import createTables from './config';
+const pool = require('./pool');
+const createTables = require('./config');
 
 const dropTeamsTableQuery = `DROP TABLE IF EXISTS teams CASCADE;`;
 
@@ -31,4 +31,6 @@ const configTestTable = async () => {
   }
 };
 
-configTestTable();
+module.exports = configTestTable;
+
+require('make-runnable');

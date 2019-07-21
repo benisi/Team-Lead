@@ -6,11 +6,11 @@
   "scripts": {
     "start": "node ./build/server.js",
     "start:dev": "nodemon --exec babel-node ./server.js",
-    "generate": "babel-node ./server/helper/team-lead.js --exit",
-    "test": "cross-env NODE_ENV='test' npm run migrate-test  && cross-env NODE_ENV='test' mocha  --require @babel/register ./server/tests/* --exit",
+    "generate": "node ./build/server/helper/team-lead.js --exit",
+    "test": "npm run migrate-test  && mocha  --require @babel/register ./server/tests/* --exit",
     "build": "babel -d ./build ./server.js && babel -d ./build/server ./server",
-    "migrate-test": "babel-node ./server/database/test-db-config.js",
-    "migrate": "babel-node ./server/database/config.js",
+    "migrate-test": "node ./server/database/test-db-config.js",
+    "migrate": "node ./server/database/config.js",
     "coverage": "nyc npm run test",
     "report": "nyc report --reporter=text-lcov | coveralls",
     "heroku-postbuild": "npm run migrate && npm run build"
