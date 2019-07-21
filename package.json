@@ -4,9 +4,15 @@
   "description": "This application select team lead and quality assurance at random to ensure fairness and equal distribution",
   "main": "server.js",
   "scripts": {
-    "start": "node ./server/database/config.js && node server.js",
-    "start:dev": "nodemon ./sever.js",
-    "test": "node ./server/database/test-db-config.js && mocha ./server/tests/* --exit"
+    "start": "node ./build/server.js",
+    "start:dev": "nodemon --exec babel-node ./server.js",
+    "test": "cross-env NODE_ENV='test' npm run migrate-test  && cross-env NODE_ENV='test' mocha  --require @babel/register ./server/tests/* --exit",
+    "build": "babel -d ./build ./server.js && babel -d ./build/server ./server",
+    "migrate-test": "babel-node ./server/database/test-db-config.js",
+    "migrate": "babel-node ./server/database/config.js",
+    "coverage": "nyc npm run test",
+    "report": "nyc report --reporter=text-lcov | coveralls",
+    "heroku-postbuild": "npm run migrate && npm run build"
   },
   "author": "Isidahomen Oseikweme",
   "license": "MIT",
@@ -17,9 +23,30 @@
     "pg": "^7.11.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
+    "babel-plugin-istanbul": "^5.1.4",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "coveralls": "^3.0.5",
+    "cross-env": "^5.2.0",
     "mocha": "^6.2.0",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "nyc": "^14.1.1"
+  },
+  "nyc": {
+    "require": [
+      "@babel/register"
+    ],
+    "reporter": [
+      "lcov",
+      "text",
+      "html"
+    ],
+    "sourceMap": false,
+    "instrument": false
   }
 }
