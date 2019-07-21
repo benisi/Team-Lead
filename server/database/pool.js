@@ -6,7 +6,7 @@ dotenv.config();
 const connectionString = process.env.DATABASE_URL;
 
 const connect = {
-  connectionString
+  connectionString,
 };
 
 const pool = new Pool(connect);
