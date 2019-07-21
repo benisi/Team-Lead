@@ -49,13 +49,13 @@ const createTables = async () => {
     await pool.query(createMembersQuery, ['Ben', 1]);
     await pool.query(createMembersQuery, ['Maro', 1]);
     await pool.query(createTeamQuery, ['Mazus']);
-    await pool.query(createMembersQuery, ['Odum', 1]);
-    await pool.query(createMembersQuery, ['Pelumi', 1]);
-    await pool.query(createMembersQuery, ['Tolu', 1]);
-    await pool.query(createMembersQuery, ['Emeka', 1]);
-    await pool.query(createMembersQuery, ['John', 1]);
-    await pool.query(createMembersQuery, ['Mark', 1]);
-    await pool.query(createMembersQuery, ['Peace', 1]);
+    await pool.query(createMembersQuery, ['Odum', 2]);
+    await pool.query(createMembersQuery, ['Pelumi', 2]);
+    await pool.query(createMembersQuery, ['Tolu', 2]);
+    await pool.query(createMembersQuery, ['Emeka', 2]);
+    await pool.query(createMembersQuery, ['John', 2]);
+    await pool.query(createMembersQuery, ['Mark', 2]);
+    await pool.query(createMembersQuery, ['Peace', 2]);
   } catch (e) {
     throw e;
   }
