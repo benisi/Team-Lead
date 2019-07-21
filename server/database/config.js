@@ -1,4 +1,4 @@
-import pool from './pool';
+const pool = require('./pool');
 
 const createTeamsTableQuery = `CREATE TABLE IF NOT EXISTS teams(
     id BIGSERIAL PRIMARY KEY NOT NULL,
@@ -41,4 +41,6 @@ const createTables = async () => {
   }
 };
 
-export default createTables;
+module.exports = createTables;
+
+require('make-runnable');
