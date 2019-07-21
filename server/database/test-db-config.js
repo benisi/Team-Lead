@@ -1,47 +1,34 @@
-const pool = require('./pool');
+import pool from './pool';
+import createTables from './config';
 
-const createTeamsTableQuery = `DROP TABLE IF EXISTS team CASCADE;
-CREATE TABLE IF NOT EXISTS teams(
-    id BIGSERIAL PRIMARY KEY NOT NULL,
-    name CHARACTER VARYING(50) NOT NULL
-)`;
+const dropTeamsTableQuery = `DROP TABLE IF EXISTS teams CASCADE;`;
 
-const createMembersTableQuery = `DROP TABLE IF EXISTS members CASCADE;
-CREATE TABLE IF NOT EXISTS members(
-    id BIGSERIAL PRIMARY KEY NOT NULL,
-    name CHARACTER VARYING(50) NOT NULL,
-    "teamId" INTEGER NOT NULL,
-    "timesTl" INTEGER NOT NULL DEFAULT 0,
-    "timesQa" INTEGER NOT NULL DEFAULT 0,
-    FOREIGN KEY ("teamId") REFERENCES teams(id) ON DELETE CASCADE
-)`; 
+const dropMembersTableQuery = `DROP TABLE IF EXISTS members;`;
 
-const createResultsTableQuery = `DROP TABLE IF EXISTS results CASCADE;
-CREATE TABLE IF NOT EXISTS results(
-    id BIGSERIAL PRIMARY KEY NOT NULL,
-    "teamId" INTEGER NOT NULL,
-    "currentTl" CHARACTER VARYING(50) NOT NULL,
-    "currentQa" CHARACTER VARYING(50) NOT NULL,
-    FOREIGN KEY ("teamId") REFERENCES teams(id) ON DELETE CASCADE
-)`;
+const dropResultsTableQuery = `DROP TABLE IF EXISTS results;`;
 
-const createMetasTableQuery = `DROP TABLE IF EXISTS metas CASCADE;
-CREATE TABLE IF NOT EXISTS metas(
-    id BIGSERIAL PRIMARY KEY NOT NULL,
-    name CHARACTER VARYING(50) NOT NULL)`;
+const dropMetasTableQuery = `DROP TABLE IF EXISTS metas;`;
 
-const createTables = async () => {
-    try{
-        await pool.query(createTeamsTableQuery);
-        await pool.query(createMembersTableQuery);
-        await pool.query(createMetasTableQuery);
-        await pool.query(createResultsTableQuery);
-    } catch (e){
-        throw(e);
-    }
-    
-}
+const createTeamQuery = `INSERT INTO teams(name) VALUES($1)`;
 
-module.exports = createTables;
+const createMembersQuery = `INSERT INTO members(name, "teamId") VALUES($1, $2)`;
 
-require('make-runnable');
+const configTestTable = async () => {
+  try {
+    await pool.query(dropTeamsTableQuery);
+    await pool.query(dropMembersTableQuery);
+    await pool.query(dropMetasTableQuery);
+    await pool.query(dropResultsTableQuery);
+    console.log('table dropped');
+    createTables();
+    await pool.query(createTeamQuery, ['dahlia']);
+    await pool.query(createMembersQuery, ['Ukhu', 1]);
+    await pool.query(createMembersQuery, ['Rita', 1]);
+    await pool.query(createMembersQuery, ['Ovie', 1]);
+    await pool.query(createMembersQuery, ['Bela', 1]);
+  } catch (e) {
+    throw e;
+  }
+};
+
+configTestTable();

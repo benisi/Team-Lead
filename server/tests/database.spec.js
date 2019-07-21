@@ -1,6 +1,5 @@
-const chai = require('chai');
-
-const generators = require('../database/generators');
+import chai from 'chai';
+import generators from '../database/generators';
 
 const { should, expect } = chai;
 should();

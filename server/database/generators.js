@@ -1,4 +1,6 @@
-const pool = require('./pool');
+import pool from './pool';
+
+
 const currentWeek = 'current-iteration';
 const initialCount = 0;
 
@@ -13,34 +15,35 @@ const getCurrentIteration = async (teamId) => {
 }
 
 const incrementCurrentIteration = async (teamId) => {
+    console.log('They want to increment me!');
     const currentIteration = await getCurrentIteration(teamId);
     const updatedIteration = Number.parseInt(currentIteration.rows[0].value) + 1;
-    query = 'UPDATE metas SET value=$1 WHERE name=$2 AND "teamId"=$3 RETURNING *';
+    const query = 'UPDATE metas SET value=$1 WHERE name=$2 AND "teamId"=$3 RETURNING *';
     const response = await pool.query(query, [updatedIteration, currentWeek, teamId]);
     return response;
 }
 
 const getTeams = async () => {
-    query = 'SELECT * FROM teams';
+    const query = 'SELECT * FROM teams';
     const response = await pool.query(query);
     return response;   
 }
 
 const getMembers = async (teamId) => {
-    query = 'SELECT * FROM members WHERE "teamId"=$1';
+    const query = 'SELECT * FROM members WHERE "teamId"=$1';
     const response = await pool.query(query, [teamId]);
     return response;   
 }
 
 const updateTimesTl = async (timesTl, id) => {
-    query = `UPDATE members SET "timesTl"=$1 WHERE "id"=$2 RETURNING *`;
-    response = await pool.query(query, [timesTl + 1, id]);
+    const query = `UPDATE members SET "timesTl"=$1 WHERE "id"=$2 RETURNING *`;
+    const response = await pool.query(query, [timesTl + 1, id]);
     return response;
 }
 
 const updateTimesQa = async (timesQa, id) => {
-    query = `UPDATE members SET "timesQa"=$1 WHERE "id"=$2 RETURNING *`;
-    response = await pool.query(query, [timesQa + 1, id]);
+    const query = `UPDATE members SET "timesQa"=$1 WHERE "id"=$2 RETURNING *`;
+    const response = await pool.query(query, [timesQa + 1, id]);
     return response;
 }
 
@@ -72,7 +75,6 @@ const getCandidates = async (teamId, query) => {
     let currentIteration = await getCurrentIteration(teamId);
     let iteration = Number.parseInt(currentIteration.rows[0].value) < 0 ? 0 : Number.parseInt(currentIteration.rows[0].value) - 1;
     let response = await pool.query(query, [teamId, iteration]);
-
     if(response.rowCount < 1){
        currentIteration = await incrementCurrentIteration(teamId);
        iteration = Number.parseInt(currentIteration.rows[0].value) < 0 ? 0 : Number.parseInt(currentIteration.rows[0].value) - 1;
@@ -81,7 +83,7 @@ const getCandidates = async (teamId, query) => {
     return response;
 }
 
-module.exports = {
+export default {
     getCurrentIteration,
     incrementCurrentIteration,
     getTeams,
